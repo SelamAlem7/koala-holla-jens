@@ -6,7 +6,7 @@ const koalaRouter = express.Router();
 const pool = require('../modules/pool.js');
 
 // GET
-router.get('/', (req, res) => {
+koalaRouter.get('/', (req, res) => {
   console.log('GET /koalas');
   const text = 'SELECT * FROM koalas;';
   pool.query(text)
