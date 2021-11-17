@@ -3,6 +3,8 @@ const koalaRouter = express.Router();
 
 // DB CONNECTION
 
+const pool = require('../modules/pool.js');
+const router = express.Router();
 
 // GET
 router.get('/', (req, res) => {
@@ -80,5 +82,26 @@ router.post('/', (req, res) => {
 
 
 // DELETE
+router.delete('/:id', (req, res) => {
+    console.log('DELETE /koalas/:id');
+    console.log('req.params:', req.params);
+    const koalaIdToDelete = req.params.id;
+    const sqlText = `
+      DELETE FROM "koalas"
+        WHERE "id"=$1;
+    `;
+    const sqlValues = [ koalaIdToDelete ];
+  
+    pool.query(sqlText, sqlValues)
+      .then((dbResult) => {
+        res.sendStatus(200);
+      })
+      .catch((dbErr) => {
+        console.error(dbErr);
+        res.sendStatus(500);
+      })
+  });
+  
+  
 
 module.exports = koalaRouter;
