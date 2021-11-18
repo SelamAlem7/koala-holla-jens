@@ -27,14 +27,39 @@ function setupClickListeners() {
   }); 
 }
 
-function getKoalas(){
-  console.log( 'in getKoalas' );
-  // ajax call to server to get koalas
-  
-} // end getKoalas
+function getKoalas() {
+  $.ajax({
+    type: 'GET',
+    url: '/koalas'
+  }).then(function(response) {
+    // console.log(response);
+    renderKoalas(response);
+  }).catch(function(error){
+    console.log('error in GET', error);
+  });
+}
+
+function renderKoalas(koalas) {
+  console.log('in renderKoalas');
+  $('#viewKoalas').empty();
+
+  for (let i=0; i<koalas.length; i++) {
+    let koala = koalas[i];
+
+    // for each koala, append a new row to table
+    $('#viewKoalas').append(`
+      <tr>
+      <th>${koala.name}</th>
+      <th>${koala.age}</th>
+      <th>${koala.gender}</th>
+      <th>${koala.ready_to_transfer}</th>
+      <th>${koala.notes}</th>
+      </tr>
+    `)
+  }
+} // end renderKoalas
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
- 
 }

@@ -11,7 +11,7 @@ koalaRouter.get('/', (req, res) => {
   const text = 'SELECT * FROM koalas;';
   pool.query(text)
     .then((dbResult) => {
-      console.log(`${dbResult.rows.length} rows to send.`)
+      // console.log(`${dbResult.rows.length} rows to send.`)
       res.send(dbResult.rows);
     })
     .catch((dbErr) => {
