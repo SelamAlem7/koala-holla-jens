@@ -17,7 +17,7 @@ function setupClickListeners() {
       name: $('#nameIn').val(),
       age: $('#ageIn').val(),
       gender: $('#genderIn').val(),
-      readyForTransfer: $('#readyForTransferIn').val(),
+      ready_to_transfer: $('#readyForTransferIn').val(),
       notes: $('#notesIn').val(),
     };
 
@@ -29,6 +29,7 @@ function setupClickListeners() {
       console.log('response', response);
       saveKoala( koalaToSend );
       clearInputs();
+      getKoalas();
     // call saveKoala with the new obejct
   }).catch((error) => {
     console.error(error);
@@ -44,6 +45,7 @@ function getKoalas(){
     url: '/koalas'
 }).then(function(response) {
     console.log(response);
+    $('#viewKoalas').empty();
     for (let koala of response) {
       $('#viewKoalas').append(`
           <tr>
