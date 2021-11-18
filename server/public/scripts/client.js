@@ -78,6 +78,9 @@ function saveKoala(newKoala){
 function handleMarkReady() {
   const koalaIdToMark = $(this).data('id');
   const currentReadyStatus = $(this).data('ready-status');
+  // if (currentReadyStatus === 'Y') {
+  //   this.remove();
+  // };
   // console.log(koalaIdToMark);
   // console.log(currentReadyStatus);
   $.ajax({
@@ -92,8 +95,6 @@ function handleMarkReady() {
 } // end handleMarkRead
 
 
-
-
 function clearInputs()  {
   $('#nameIn').val(''),
   $('#ageIn').val(''),
@@ -102,3 +103,6 @@ function clearInputs()  {
   $('#notesIn').val('')
   console.log('Inputs cleared');
 };
+
+
+
