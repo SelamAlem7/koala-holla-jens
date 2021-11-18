@@ -10,20 +10,18 @@ $( document ).ready( function(){
 }); // end doc ready
 
 function setupClickListeners() {
-  $( '#addButton' ).on( 'click', function(){
-    console.log( 'in addButton on click' );
-    // get user input and put in an object
-    // NOT WORKING YET :(
-    // using a test object
+  $('#addButton').on( 'click', function() {
+    console.log('in addButton on click');
+
     let koalaToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      readyForTransfer: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val(),
     };
     // call saveKoala with the new obejct
-    saveKoala( koalaToSend );
+    saveKoala(koalaToSend);
   }); 
 }
 
@@ -59,7 +57,17 @@ function renderKoalas(koalas) {
   }
 } // end renderKoalas
 
-function saveKoala( newKoala ){
+function saveKoala(newKoala){
   console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
-}
+  $.ajax({
+    type: 'POST',
+    url: '/koalas',
+    data: newKoala,
+  }).then((response) => {
+    console.log('Response from server.', response);
+    getKoalas();
+  }).catch((error) => {
+    console.error(error);
+    });
+} // end saveKoala
