@@ -10,6 +10,8 @@
   "author": "@devjana",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "pg": "^8.7.1",
+    "postgres": "^1.0.2"
   }
 }

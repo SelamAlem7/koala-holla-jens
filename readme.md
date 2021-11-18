@@ -52,3 +52,10 @@ Upon completion of the project you'll need to provide not only the source (via G
 Your final product may look something like this:
 
 ![sample](sample.png)
+
+
+### Project Map
+[ ] create database and table in SQL
+[ ] connect database to server (using postgres and pool)
+[ ] setup GET route to request koalas from database
+[ ] setup POST route to send added koala to database
