@@ -22,6 +22,7 @@ function setupClickListeners() {
     };
     // call saveKoala with the new obejct
     saveKoala(koalaToSend);
+    clearInputs();
   }); 
 }
 
@@ -52,13 +53,9 @@ function renderKoalas(koalas) {
         <td>${koala.gender}</td>
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
+        <td><button class="markReady-btn" data-id="${koala.id}" data-ready-status="${koala.ready_to_transfer}">Ready to Transfer</button></td>
       </tr>
     `)
-    if (koala.ready_to_transfer = 'N') {
-      $(this).append(`
-      <td><button class="markReady-btn" data-id="${koala.id}" data-ready-status="${koala.ready_to_transfer}">Ready to Transfer</button></td>
-      `
-      )}
   }
 } // end renderKoalas
 
@@ -93,3 +90,12 @@ function handleMarkReady() {
     console.error(error);
   })
 } // end handleMarkRead
+
+function clearInputs()  {
+  $('#nameIn').val(''),
+  $('#ageIn').val(''),
+  $('#genderIn').val(''),
+  $('#readyForTransferIn').val(''),
+  $('#notesIn').val('')
+  console.log('Inputs cleared');
+};
