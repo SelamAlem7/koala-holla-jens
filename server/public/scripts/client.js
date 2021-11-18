@@ -6,7 +6,7 @@ $( document ).ready( function(){
   setupClickListeners()
   // load existing koalas on page load
   getKoalas();
-
+  $('#viewKoalas').on('click', '.markReady-btn', handleMarkReady);
 }); // end doc ready
 
 function setupClickListeners() {
@@ -36,7 +36,7 @@ function getKoalas() {
   }).catch(function(error){
     console.log('error in GET', error);
   });
-}
+};
 
 function renderKoalas(koalas) {
   console.log('in renderKoalas');
@@ -78,18 +78,21 @@ function saveKoala(newKoala){
 function handleMarkReady() {
   const koalaIdToMark = $(this).data('id');
   const currentReadyStatus = $(this).data('ready-status');
-  // console.log(bookIdToMark);
-  // console.log(currentReadStatus);
+  // console.log(koalaIdToMark);
+  // console.log(currentReadyStatus);
   $.ajax({
     type: 'PUT',
     url: `/koalas/${koalaIdToMark}`,
     data: {currentReadyStatus: currentReadyStatus}
   }).then((res) => {;
-    refreshBooks();
+    getKoalas();
   }).catch((error) => {
     console.error(error);
   })
 } // end handleMarkRead
+
+
+
 
 function clearInputs()  {
   $('#nameIn').val(''),
