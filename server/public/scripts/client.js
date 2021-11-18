@@ -12,29 +12,69 @@ $( document ).ready( function(){
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', function(){
     console.log( 'in addButton on click' );
-    // get user input and put in an object
-    // NOT WORKING YET :(
-    // using a test object
+    
     let koalaToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      ready_to_transfer: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val(),
     };
+
+    $.ajax({
+      method: 'POST',
+      url: '/koalas',
+      data: koalaToSend
+    }).then((response) => {
+      console.log('response', response);
+      saveKoala( koalaToSend );
+      clearInputs();
+      getKoalas();
     // call saveKoala with the new obejct
-    saveKoala( koalaToSend );
-  }); 
-}
+  }).catch((error) => {
+    console.error(error);
+  });
+  })
+};
 
 function getKoalas(){
   console.log( 'in getKoalas' );
   // ajax call to server to get koalas
-  
-} // end getKoalas
+  $.ajax({
+    method: 'GET',
+    url: '/koalas'
+}).then(function(response) {
+    console.log(response);
+    $('#viewKoalas').empty();
+    for (let koala of response) {
+      $('#viewKoalas').append(`
+          <tr>
+            <th>${koala.name}</th>
+            <th>${koala.age}</th>
+            <th>${koala.gender}</th>
+            <th>${koala.ready_to_transfer}</th>
+            <th>${koala.notes}</th>
+          </tr>
+        `)
+    }
+}).catch(function (error) {
+    console.log('error in koalas get', error);
+});
+}
+// end getKoalas
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
  
 }
+
+
+function clearInputs()  {
+  $('#nameIn').val(''),
+  $('#ageIn').val(''),
+  $('#genderIn').val(''),
+  $('#readyForTransferIn').val(''),
+  $('#notesIn').val('')
+  console.log('Inputs cleared');
+};
