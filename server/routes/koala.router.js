@@ -25,7 +25,9 @@ koalaRouter.get('/', (req, res) => {
 
 
 // POST
-
+koalaRouter.post('/', (req, res) => {
+  const newKoala
+})
 
 // PUT
 
