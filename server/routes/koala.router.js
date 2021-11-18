@@ -23,7 +23,7 @@ koalaRouter.get('/', (req, res) => {
 // POST
 koalaRouter.post('/', (req, res) => {
   let newKoala = req.body;
-  console.log('Adding koala', newKoala);
+  // console.log('Adding koala', newKoala);
 
   let queryText = `INSERT INTO "koalas" ("name", "age", "gender", "ready_to_transfer", "notes")
                       VALUES ($1, $2, $3, $4, $5);`;
@@ -39,7 +39,7 @@ koalaRouter.post('/', (req, res) => {
       res.sendStatus(201);
     })
     .catch(error => {
-      console.log(error);
+      // console.log(error);
       res.sendStatus(500);
     })
 });

@@ -46,14 +46,19 @@ function renderKoalas(koalas) {
 
     // for each koala, append a new row to table
     $('#viewKoalas').append(`
-      <tr>
-      <th>${koala.name}</th>
-      <th>${koala.age}</th>
-      <th>${koala.gender}</th>
-      <th>${koala.ready_to_transfer}</th>
-      <th>${koala.notes}</th>
+      <tr id="${koala.id}">
+        <td>${koala.name}</td>
+        <td>${koala.age}</td>
+        <td>${koala.gender}</td>
+        <td>${koala.ready_to_transfer}</td>
+        <td>${koala.notes}</td>
       </tr>
     `)
+    if (koala.ready_to_transfer = 'N') {
+      $(this).append(`
+      <td><button class="markReady-btn" data-id="${koala.id}" data-ready-status="${koala.ready_to_transfer}">Ready to Transfer</button></td>
+      `
+      )}
   }
 } // end renderKoalas
 
@@ -65,9 +70,26 @@ function saveKoala(newKoala){
     url: '/koalas',
     data: newKoala,
   }).then((response) => {
-    console.log('Response from server.', response);
+    // console.log('Response from server.', response);
     getKoalas();
   }).catch((error) => {
     console.error(error);
     });
 } // end saveKoala
+
+// create function to change mark ready for transfer
+function handleMarkReady() {
+  const koalaIdToMark = $(this).data('id');
+  const currentReadyStatus = $(this).data('ready-status');
+  // console.log(bookIdToMark);
+  // console.log(currentReadStatus);
+  $.ajax({
+    type: 'PUT',
+    url: `/koalas/${koalaIdToMark}`,
+    data: {currentReadyStatus: currentReadyStatus}
+  }).then((res) => {;
+    refreshBooks();
+  }).catch((error) => {
+    console.error(error);
+  })
+} // end handleMarkRead
