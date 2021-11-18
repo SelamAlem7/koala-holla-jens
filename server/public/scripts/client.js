@@ -44,18 +44,7 @@ function renderKoalas(koalas) {
 
   for (let i=0; i<koalas.length; i++) {
     let koala = koalas[i];
-
-    // for each koala, append a new row to table
-    $('#viewKoalas').append(`
-      <tr id="${koala.id}">
-        <td>${koala.name}</td>
-        <td>${koala.age}</td>
-        <td>${koala.gender}</td>
-        <td>${koala.ready_to_transfer}</td>
-        <td>${koala.notes}</td>
-        <td><button class="markReady-btn" data-id="${koala.id}" data-ready-status="${koala.ready_to_transfer}">Ready to Transfer</button></td>
-      </tr>
-    `)
+    readyOrNot(koala);
   }
 } // end renderKoalas
 
@@ -102,3 +91,28 @@ function clearInputs()  {
   $('#notesIn').val('')
   console.log('Inputs cleared');
 };
+
+function readyOrNot(param) {
+  if (param.ready_to_transfer === 'N') {
+    $('#viewKoalas').append(`
+      <tr id="${param.id}">
+        <td>${param.name}</td>
+        <td>${param.age}</td>
+        <td>${param.gender}</td>
+        <td>${param.ready_to_transfer}</td>
+        <td>${param.notes}</td>
+        <td><button class="markReady-btn" data-id="${param.id}" data-ready-status="${param.ready_to_transfer}">Ready to Transfer</button></td>
+      </tr>
+    `)
+  }
+  else $('#viewKoalas').append(`
+    <tr id="${param.id}">
+      <td>${param.name}</td>
+      <td>${param.age}</td>
+      <td>${param.gender}</td>
+      <td>${param.ready_to_transfer}</td>
+      <td>${param.notes}</td>
+    </tr>
+`)
+}
+  
